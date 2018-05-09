@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
      <link rel="stylesheet" type="text/css" href="/css/admin_style.css" media="all" />
      <link rel="stylesheet" type="text/css" href="/css/footer.css" media="all" />
-     <link rel="stylesheet" type="text/css" href="/css/button.css" media="all" />
+     <link rel="stylesheet" type="text/css" href="/css/buttons.css" media="all" />
     <link rel="shortcut icon" href="/gallery/logo.png" type="image/png"/>
 </head>
 
@@ -29,7 +29,7 @@
 			
 			<!-- button logout nè -->
 			<form action='admin.php' method='POST'>
-				<input class="button_blue" type="submit" name="logout" value="Đăng xuất">
+				<input class="button_red" type="submit" name="logout" value="Đăng xuất">
 			</form>
 			
 			<center><h1>Quản lý tài khoản</h1></center>
