@@ -1,0 +1,28 @@
+/* Alert Box */
+.alert-box {
+	color: #555;
+	border :1px solid;
+	border-radius: 10px;
+	font-family: Tahoma,Geneva,Arial,sans-serif;
+	font-size: 11px;
+	padding: 10px 36px;
+	margin: 10px;
+}
+.alert-box span {
+	font-weight: bold;
+	text-transform: uppercase;
+}
+.error {
+	background: #ffecec url('/gallery/error.png') no-repeat 10px 50%;
+	border-color: #f5aca6;
+}
+.error span {
+	color: #641f1a;
+}
+.success {
+	background: #e9ffd9 url('/gallery/success.png') no-repeat 10px 50%;
+	border-color: #a6ca8a;
+}
+.success span {
+	color: #4f8746;
+}
