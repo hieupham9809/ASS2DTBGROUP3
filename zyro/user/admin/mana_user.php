@@ -28,7 +28,7 @@
 			if(isset($_POST['logout']))
 			{
 				session_destroy();
-				header("Location: /login.php");
+				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
 			
             $noti=$_GET['noti'];
@@ -104,7 +104,7 @@
             <script  src="/js/tables.js"></script>
       <?php  }    
             else{
-                header("Location: /login.php");
+                echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
            } ?>
     
     <center>

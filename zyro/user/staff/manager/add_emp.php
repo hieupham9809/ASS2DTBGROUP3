@@ -99,7 +99,7 @@ if(isset($_POST['addemp']))
 <?php }
 else
 {
- header("location: index.php");
+ echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
  exit();
 }
 ?>

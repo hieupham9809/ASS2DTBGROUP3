@@ -24,7 +24,7 @@ if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
 			if(isset($_POST['logout']))
 			{
 				session_destroy();
-				header("Location: /login.php");
+				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
 
 if(isset($_POST['adduser']))
@@ -123,7 +123,7 @@ if(isset($_POST['adduser']))
 <?php }
 else
 {
- header("location: index.php");
+ echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
  exit();
 }
 ?>

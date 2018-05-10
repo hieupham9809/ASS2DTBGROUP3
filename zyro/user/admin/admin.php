@@ -23,7 +23,7 @@
 			if(isset($_POST['logout']))
 			{
 				session_destroy();
-				header("Location: /login.php");
+				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
 			?>
 			
@@ -53,7 +53,7 @@
     <?php 
 		}
 		else{
-			header("Location: /login.php");
+			echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 		}
 	?>
 	

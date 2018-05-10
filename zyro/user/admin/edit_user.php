@@ -5,6 +5,6 @@ if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
 }
 
 else{
-	 header("location: index.php"); 
+	 echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 }	
 	?>
