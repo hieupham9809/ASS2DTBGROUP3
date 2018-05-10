@@ -98,10 +98,12 @@ if(isset($_POST['adduser']))
 	
     <label for="role">Chức vụ</label>
         <select id="role" name="role">
-          <option value="manager">Quản lý</option>
-          <option value="employee">Nhân viên</option>
-          <option value="accountant">Kế toán</option>
-          <option value="cashier">Thu ngân</option>
+			<option value="admin">Admin</option>
+			<option value="manager">Quản lý</option>			
+			<option value="accountant">Kế toán</option>
+			<option value="cashier">Thu ngân</option>
+			<option value="chief">Đầu bếp</option>
+			<option value="staff">Nhân viên khác</option>
         </select>
 
     </fieldset>
@@ -117,7 +119,7 @@ if(isset($_POST['adduser']))
     </span>
     </div>
     <center>
-        <a href="/user/admin/admin.php"><input class="button" type="button" name="delete" value="Quay về"/></a>
+        <a href="/user/admin/admin.php"><input class="button_red" type="button" name="delete" value="Quay về"/></a>
     </center>   
     
 <?php }
