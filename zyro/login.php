@@ -51,8 +51,8 @@ $u=$p="";
    session_start();
    $_SESSION['userid'] = $row[id];
    $_SESSION['role'] = $row[role];
-   if ( $_SESSION['role'] == "admin") header("Location: /user/admin/admin.php");
-    else header("Location: /user/staff/employee.php");
+   if ( $_SESSION['role'] == "admin") echo"<META http-equiv='refresh' content='0;URL=/user/admin/admin.php'>";
+    else echo"<META http-equiv='refresh' content='0;URL=/user/staff/employee.php'>";
   }
  }
 }

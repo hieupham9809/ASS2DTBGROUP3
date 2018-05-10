@@ -14,7 +14,19 @@
 <body>
     
 
+
+
 <?php
+session_start();
+if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
+{
+	/*Nút logout */
+			if(isset($_POST['logout']))
+			{
+				session_destroy();
+				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
+			}
+
 if(isset($_POST['adduser']))
 {
     $i=$u=$p="";
@@ -68,13 +80,14 @@ if(isset($_POST['adduser']))
        }
   }
 }
-?>
-
-
-<?php
-session_start();
-if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
-{?>
+	
+	?>
+	
+	<!-- button logout nè -->
+			<form action='add_user.php' method='POST'>
+				<input class="button_red" type="submit" name="logout" value="Đăng xuất">
+			</form>
+	
 <div class="form-style-5">
 <form action='add_user.php' method='POST'>
     <fieldset>
@@ -110,7 +123,7 @@ if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
 <?php }
 else
 {
- header("location: index.php");
+ echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
  exit();
 }
 ?>

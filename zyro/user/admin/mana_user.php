@@ -24,6 +24,13 @@
         session_start();
         if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
         {
+			/*Nút logout */
+			if(isset($_POST['logout']))
+			{
+				session_destroy();
+				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
+			}
+			
             $noti=$_GET['noti'];
             if($noti!=""){
                 if($noti=="SUCCESS"){
@@ -33,7 +40,10 @@
             }
             ?>
         
-        
+			<!-- button logout nè -->
+			<form action='mana_user.php' method='POST'>
+				<input class="button_red" type="submit" name="logout" value="Đăng xuất">
+			</form>
             
             <section>
                 <h1>Quản lý người dùng</h1>
@@ -94,7 +104,7 @@
             <script  src="/js/tables.js"></script>
       <?php  }    
             else{
-                header("Location: /login.php");
+                echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
            } ?>
     
     <center>
