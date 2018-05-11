@@ -19,7 +19,7 @@
 		 else{
 			 $noti="SUCCESS";
 		 }
-		header("location: mana_user.php?noti=$noti");
+		echo"<META http-equiv='refresh' content='0;URL=mana_user.php?noti=$noti'>";
 		exit();
 	
 	}

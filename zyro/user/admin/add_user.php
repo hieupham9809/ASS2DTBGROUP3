@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head><title>Thêm tài khoản</title>
-	<meta http-equiv="Content-Type" content="login.php; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="add_user.php; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
      <link rel="stylesheet" type="text/css" href="/css/addform.css" media="all" />
      <link rel="stylesheet" type="text/css" href="/css/footer.css" media="all" />
@@ -76,7 +76,9 @@ if(isset($_POST['adduser']))
        {
         $sql2="INSERT INTO  `user`(`id`,`username`,`password`,`role`) VALUES ('".$i."','".$u."','".$p."','".$r."')";
         $query2=mysql_query($sql2);
+		if(mysql_num_rows(mysql_query($sql))!=0){
         echo "<div class=\"alert-box success\"><span>Success: </span>Thêm thành viên mới thành công</div>";
+		}else echo "<div class=\"alert-box error\"><span>error: </span>Đã xảy ra lỗi</div>";
        }
   }
 }

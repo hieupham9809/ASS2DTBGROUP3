@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head><title>Quản lý người dùng</title>
-	<meta http-equiv="Content-Type" content="login.php; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="mana_user.php; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" type="text/css" href="/css/tables.css" media="all" />
@@ -118,7 +118,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="form-style-5">
-						<form>
+					
 							<fieldset>
 								<label for="role">Chức vụ</label>
 								<select id="role" name="role">
@@ -130,12 +130,12 @@
 									<option value="staff">Nhân viên khác</option>
 								</select>
 							</fieldset>
-							<input type="submit" value="OK" name='submit'> 
-						</form>
+							<input type="submit" value="OK" name='submit' onclick='submit()'/> 
+					
 					</div>
 				</div>
 				<div class="modal-footer">
-				  <h3>ID: </h3>
+				  <h3>ID :<output id="edit_id" name="edit_id" type="text" value="OK"></output></h3>
 				</div>
 			  </div>
 
@@ -158,13 +158,13 @@
 						window.location="del_user.php?userid="+id;
 					}
 				}
-				
 				function edit_user(id)
 				{
-					alert(id);
+					
 					modal.style.display = "block";
+					var us_id = document.getElementById('edit_id');
+					us_id.value=id;
 				}
-				
 				
 				// When the user clicks on <span> (x), close the modal
 				span.onclick = function() {
@@ -176,6 +176,12 @@
 					if (event.target == modal) {
 						modal.style.display = "none";
 					}
+				}
+				
+				function submit()
+				{
+					var newrole = document.getElementById('role');
+					window.location="edit_user.php?userid="+document.getElementById('edit_id').value+"&newrole="+newrole.value;
 				}
 
 
