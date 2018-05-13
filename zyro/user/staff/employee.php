@@ -13,7 +13,7 @@
   
 <center><h1>THÔNG TIN CƠ BẢN</h1></center>
 <!--.canvas-->
-<div class="buttons"><a class="button1" href="/user/staff/emp_infor.php">XEM THÔNG TIN CÁ NHÂN</a><a class="button2" href="mana_user.php">CHỨC NĂNG RIÊNG</a></div>
+<div class="buttons"><a class="button1" href="/user/staff/emp_infor.php">XEM THÔNG TIN CÁ NHÂN</a><a class="button2" href="/user/staff/navigate.php">CHỨC NĂNG RIÊNG</a></div>
 
 
 <!-- Footer-->
