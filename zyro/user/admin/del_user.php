@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	if(isset($_SESSION['userid']) && $_SESSION['role'] == "admin")
 	{
 		$id=$_GET['userid'];
@@ -18,12 +19,12 @@
 		 else{
 			 $noti="SUCCESS";
 		 }
-		header("location: mana_user.php?noti=$noti");
+		echo"<META http-equiv='refresh' content='0;URL=mana_user.php?noti=$noti'>";
 		exit();
 	
 	}
 	else{
-	 echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
+		echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 	}	
 
 ?>

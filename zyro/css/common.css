@@ -167,3 +167,29 @@ html { position: relative; }
 	.wb-stl-custom2 { font-size: 14px; }
 	.wb-stl-custom3 { font-size: 14px; }
 }
+
+input[type=number]::-webkit-inner-spin-button {
+  opacity: 1;
+}
+
+input[type="text"],input[type=number]
+{
+    font-family: Georgia, "Times New Roman", Times, serif;
+    background: rgba(255,255,255,.1);
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    margin: 0;
+    outline: 0;
+    padding: 7px;
+    width: 100%;
+    box-sizing: border-box; 
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box; 
+    background-color: #e8eeef;
+    color:#8a97a0;
+    -webkit-box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    box-shadow: 0 1px 0 rgba(0,0,0,0.03) inset;
+    margin-bottom: 5px;
+    
+}
