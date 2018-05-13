@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head><title>Quản lý người dùng</title>
-	<meta http-equiv="Content-Type" content="mana_user.php; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
     <link rel="stylesheet" type="text/css" href="/css/tables.css" media="all" />

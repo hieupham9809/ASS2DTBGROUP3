@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head><title>Thêm tài khoản</title>
-	<meta http-equiv="Content-Type" content="add_user.php; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
      <link rel="stylesheet" type="text/css" href="/css/addform.css" media="all" />
      <link rel="stylesheet" type="text/css" href="/css/footer.css" media="all" />
