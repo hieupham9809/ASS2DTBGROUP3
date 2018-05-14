@@ -102,8 +102,12 @@
 						</tbody>
                     </table>
 				</div>
+		<!-- button trở về -->
+	<form >
+		<input class="button_red" type="button" value="Trở lại" onclick="history.back()">
+	</form>	
     </section>
-
+	
 
 <!-- Footer-->
     <div class="footer-bar">
