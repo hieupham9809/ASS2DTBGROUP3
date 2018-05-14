@@ -43,10 +43,11 @@
             }
 			
 			/* xử lý database */
-			if(isset($_POST['submit']))
-			{
+			if(isset($_POST['cashing']))
+			{	
 				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
+				echo($_POST['msm']);
 			}
 			
             ?>
@@ -60,7 +61,7 @@
 			
             <section>
                 <h1>Thông tin hóa đơn</h1>
-				
+				<form action='cashing.php' method='POST'>
 				<div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -99,20 +100,16 @@
                 <div class="tbl-content">
                     <table cellpadding="0" cellspacing="0" border="0" id="item_table">
                         <tbody>
-							<tr id='item_0'>
-								<td ><input type='text' id='msm' style='width:50%'/></td>
-								<td ><input type='number' id='count' style='width:50%' value="1" /></td>
-								<td><img src='/gallery/delete.png' width='30px' onclick='del_item("item_0")'></td>
-							</tr>
-							<tr>
+							
 							<td><img src='/gallery/plus.png' width='30px' onclick='add_item()'></td>
-							<td></td>
-							<td><input class="button" type="submit" name="submit" value="Tính tiền"></td>
+							<td><input class="button_red" type="submit" name="delete_all" onclick='del_all()' value="Xóa hết"></td>
+							<td><input class="button" type="submit" name="cashing" value="Tính tiền"/></td>
 							
 							</tr>
                         </tbody>
                     </table>
                 </div>
+				</form>
             </section>
 			
 			
@@ -120,8 +117,22 @@
             <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
             <script  src="/js/tables.js"></script>
 			<script type="text/javascript">
-				var curent_index=1;
-				var num_item = 1;
+				var curent_index=0;
+				var num_item = 0;
+				add_item();
+				
+				function update_rows_index()
+				{
+					var i=0;
+					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
+					for(i=0;i<tableRef.rows.length-1;i++)
+					{
+						tableRef.rows[i].id="item_"+i;
+						tableRef.rows[i].cells[2].innerHTML="<image src='/gallery/delete.png' width='30px'  id='del_but' onclick=\"del_item('"+ tableRef.rows[i].id +"')\">";
+					
+					}
+				}
+				
 				function del_item(rowid)
 				{
 					if(num_item == 1){
@@ -129,28 +140,47 @@
 					}
 					else {
 						if(confirm("Are you sure you want to delete this item?")){
-							id= rowid - "item_";
+							id= rowid.slice(6); 
 							document.getElementById("item_table").getElementsByTagName('tbody')[0].deleteRow(id);
+							update_rows_index();
 							num_item--;
+							current_index--;
 						}
 					}
 				}
 				function add_item()
-				{
-					var index = "item_"+curent_index;
+				{					
 					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
 					var newRow   = tableRef.insertRow(tableRef.rows.length-1);
-					
+					var index = "item_"+(tableRef.rows.length-2);
 					newRow.id = index;
 					var ma_mon  = newRow.insertCell(0);
 					var number	= newRow.insertCell(1);
 					var del = newRow.insertCell(2);
-					ma_mon.innerHTML="<input type='text' id='msm' style='width:50%'/>";
-					number.innerHTML="<input type='number' id='count' style='width:50%' value='1' />";
-					del.innerHTML ="<img src='/gallery/delete.png' width='30px' onclick=\"del_item(' "+ index +"')\">";
+					ma_mon.innerHTML="<input type='text' name='msm' style='width:50%'/>";
+					number.innerHTML="<input type='number' name='count' style='width:50%' value='1' />";
+					del.innerHTML ="<image src='/gallery/delete.png' width='30px'  id='del_but' onclick=\"del_item('"+ index +"')\">";
 					
 					curent_index++;
 					num_item++;
+				}
+				
+				function del_all()
+				{
+					if(confirm("Are you sure?"))
+					{
+						var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
+						while(tableRef.rows.length >1){
+							tableRef.deleteRow(tableRef.rows.length-2);
+						}
+						
+						current_index=0;
+						num_item=0;
+						
+						//Tạo row 0
+						add_item();
+						
+					}
 				}
 
 			</script>
