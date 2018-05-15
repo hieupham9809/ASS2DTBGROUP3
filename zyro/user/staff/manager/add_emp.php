@@ -70,18 +70,19 @@ if(isset($_POST['addemp']))
 	   $query1=mysql_query($check_from_nhan_vien);												# thực hiện câu truy vấn
        $query2=mysql_query($check_from_user);	
       
-
+	  mysql_query('SET foreign_key_checks = 0');
+		
 	  if(mysql_num_rows($query1) != 0)
        {
         echo "<div class=\"alert-box error\"><span>error: </span>MSNV này đã tồn tại</div>";
        }
-	   else if(mysql_num_rows($query1) == 0){
+	   else if(mysql_num_rows($query2) == 0){
 		 echo "<div class=\"alert-box error\"><span>error: </span>User này chưa tồn tại</div>";
 	   }
        else
        {
         $insert_emp="CALL `add_emp`('".$i."', '".$s."', '".$a."', '".$_SESSION['userid']."');";
-        $query2=mysql_query($insert_emp);
+        mysql_query($insert_emp);
 		if(mysql_num_rows(mysql_query($check_from_nhan_vien))==0) echo "<div class=\"alert-box error\"><span>error: </span>Xảy ra lỗi</div>";
 		else echo "<div class=\"alert-box success\"><span>Success: </span>Thêm nhân viên mới thành công</div>";
        }
@@ -114,7 +115,7 @@ if(isset($_POST['addemp']))
     </span>
     </div>
     <center>
-        <a href="/user/staff/employee.php"><input class="button" type="button" name="delete" value="Quay về"/></a>
+        <a href="/user/staff/manager/manager.php"><input class="button" type="button" name="delete" value="Quay về"/></a>
     </center>   
     
 <?php }

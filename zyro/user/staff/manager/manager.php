@@ -114,6 +114,10 @@
                 }
             }
         ?>
+							<tr>
+							<td><a href="add_emp.php"><img src='/gallery/plus.png' width='30px'></a></td>
+							
+							</tr>
                         </tbody>
                     </table>
                 </div>
