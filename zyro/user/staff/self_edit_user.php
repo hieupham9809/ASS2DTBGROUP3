@@ -13,6 +13,10 @@
 </head>
 <body>
 <section>
+	<!-- button logout nè -->
+				<form action='self_edit_user.php' method='POST'>
+					<input class="button_red" type="submit" name="logout" value="Đăng xuất">
+				</form>
     <h1>CẬP NHẬT THÔNG TIN NHÂN VIÊN </h1>
 		<?php
 			
@@ -21,10 +25,7 @@
 			{	
 				
 		?>
-				<!-- button logout nè -->
-				<form action='self_edit_user.php' method='POST'>
-					<input class="button_red" type="submit" name="logout" value="Đăng xuất">
-				</form>
+				
 		<?php 
 				if(isset($_POST['logout']))
 				{
@@ -81,8 +82,7 @@
 				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
 			
-			if (isset($_SESSION['return']))
-				echo"<META http-equiv='refresh' content='2;URL=/user/staff/emp_infor.php'>";
+			
 			?>
 
 	<form class="form-style-9" action='self_edit_user.php' method='post'>
@@ -104,13 +104,16 @@
 		</li>
 		<li>
 			<input type="submit" name="ssubmit" value="Lưu lại" />
+			<!-- button trở về -->
+		<form >
+			<input class="button_red" type="button" value="Trở lại" onclick="history.back()">
+		</form>
 		</li>
 	</ul>
 	</form>
-	<!-- button trở về -->
-	<form action='self_edit_user.php' method='POST'>
-		<input class="button_red" type="submit" name="return" value="Trở lại">
-	</form>
+	
+</section>
+	
 <!-- Footer-->
     <div class="footer-bar">
     <span class="article-wrapper">
