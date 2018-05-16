@@ -35,7 +35,7 @@
 				
 				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
-				$sql1 = "select * from `nhan_vien` where ma_so_nhan_vien = 2"; // list employee SQL command
+				$sql1 = "call get_info_cus('".$_SESSION['userid']."');"; // list employee SQL command
 				$query2=mysql_query($sql1);
 	
 				$row2 = mysql_fetch_array($query2);
