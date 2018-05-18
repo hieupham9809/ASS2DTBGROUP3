@@ -88,11 +88,11 @@
                 {
                     echo "<tr >";
                     echo "<td >$row2[MA_SO_NHAN_VIEN]</td>";
-                    echo "<td ><input type=\"number\" name=\"thang[]\" class=\"field-style field-split align-left\" placeholder=$row2[THANG] /></td>";
-					echo "<td ><input type=\"number\" name=\"so_ngay_nghi[]\" class=\"field-style field-split align-left\" placeholder=$row2[SO_NGAY_NGHI] /></td>";
-					echo "<td ><input type=\"number\" name=\"so_gio_tang_ca[]\" class=\"field-style field-split align-left\" placeholder=$row2[SO_GIO_TANG_CA] /></td>";
-					echo "<td ><input type=\"number\" name=\"tien_thuong[]\" class=\"field-style field-split align-left\" placeholder=$row2[TIEN_THUONG] /></td>";
-					echo "<td ><input type=\"number\" name=\"tien_phat[]\" class=\"field-style field-split align-left\" placeholder=$row2[TIEN_PHAT] /></td>";
+                    echo "<td ><input type=\"number\" name=\"thang[]\" class=\"field-style field-split align-left\" value=$row2[THANG] /></td>";
+					echo "<td ><input type=\"number\" name=\"so_ngay_nghi[]\" class=\"field-style field-split align-left\" value=$row2[SO_NGAY_NGHI] /></td>";
+					echo "<td ><input type=\"number\" name=\"so_gio_tang_ca[]\" class=\"field-style field-split align-left\" value=$row2[SO_GIO_TANG_CA] /></td>";
+					echo "<td ><input type=\"number\" name=\"tien_thuong[]\" class=\"field-style field-split align-left\" value=$row2[TIEN_THUONG] /></td>";
+					echo "<td ><input type=\"number\" name=\"tien_phat[]\" class=\"field-style field-split align-left\" value=$row2[TIEN_PHAT] /></td>";
 					echo "<td >$row2[LUONG_CHINH_THUC]</td>";
                    /* if($row[id]!=$_SESSION['userid'])
                     {	
