@@ -23,6 +23,9 @@
 	session_start();
 	if(isset($_SESSION['userid']) && $_SESSION['role'] == "cashier")
 	{
+		
+		$mshd=$_GET['bill_id'];		
+		
 		/*Nút logout */
 		if(isset($_POST['logout']))
 		{
@@ -33,7 +36,21 @@
 		$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
         mysql_select_db("id5514461_restaurant",$conn);
 		mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
-		$mshd=$_GET['bill_id'];		
+		
+		if(isset($_POST['thanh_toan'])){
+			$status="đã thanh toán";
+			$status_query="UPDATE `HOA_DON` SET `TINH_TRANG_THANH_TOAN`= '".$status."' where `MA_HOA_DON`='".$mshd."'";
+			$s = mysql_query($status_query);
+								
+								
+								  
+			$check_status="select * from hoa_don where ma_hoa_don='".$mshd."' and tinh_trang_thanh_toan='".$status."'";
+								
+			$check_query=mysql_query($check_status);
+			if(mysql_num_rows($check_query)==0) echo "<div class=\"alert-box error\"><span>Error: </span>Lỗi hệ thống</div>";
+			else echo"<div class=\"alert-box success\"><span>Success </span>Thanh toán thành công</div>";
+		}
+		
 		
 		$sql="select * from hoa_don where MA_HOA_DON = '".$mshd."'";
 		
@@ -99,10 +116,9 @@
 						<?php
 						
 							#Xuất thông tin món trong hóa đơn
-							$item = "call hoadon_item_infor('".$mshd."')";
+							$item = "call hoadon_item_infor('".$mshd."');";
 							$stt=0;
-							$item_query = mysql_query($item);
-							
+							$item_query = mysql_query($item) or die($location = "not found");
 							
 							#Fetch each rows
 							while($row=mysql_fetch_array($item_query))
@@ -117,41 +133,15 @@
 								echo "</tr>";
 							}
 							
-							if(isset($_POST['thanh_toan'])){
-								$status="đã thanh toán";
-								$status_query="call update_bill_status('".$mshd."','".$status."')";
-								mysql_query($status_query);
-								
-								
-								
-								$check_status="select * from hoa_don where ma_hoa_don='".$mshd."' and tinh_trang_thanh_toan='".$status."'";
-								
-								$check_query=mysql_query($check_status);
-								if(mysql_num_rows($check_query)==0) echo "<div class=\"alert-box error\"><span>Error: </span>Lỗi hệ thống</div>";
-								else echo"<META http-equiv='refresh' content='0;URL=/cashing.php'>";
-							}
+							
+							#Cập nhật tình trạng thanh toán
+							
+							
 							
 						?>
 							
 							
-							<tr>
-								<td>  </td>
-								<td>  </td>
-								<td class="text-right">
-								<p>
-									<strong>Phụ thu:</strong>
-								</p>
-								<p>
-									<strong>Tax:</strong>
-								</p></td>
-								<td class="text-center">
-								<p>
-									<strong>$6.94</strong>
-								</p>
-								<p>
-									<strong>$6.94</strong>
-								</p></td>
-							</tr>
+							
 							<tr>
 								<td>  </td>
 								<td>  </td>
@@ -169,6 +159,12 @@
 				</div>
 			</div>
 		</div>
+		
+		 <center>
+        <a href="cashing.php"><input class="button_red" type="button" name="back" value="Quay về"/></a>
+		</center>        
+		
+		
 		
 	</body>
 	</html>

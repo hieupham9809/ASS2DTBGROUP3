@@ -22,7 +22,7 @@
 		session_start();
 		if(isset($_SESSION['userid']) && $_SESSION['role'] == "manager")
 {
-/*Nút logout */
+			/*Nút logout */
 			if(isset($_POST['logout']))
 			{
 				session_destroy();
@@ -66,7 +66,7 @@ if(isset($_POST['addemp']))
       $conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
         mysql_select_db("id5514461_restaurant",$conn);
        $check_from_nhan_vien ="select * from NHAN_VIEN where MA_SO_NHAN_VIEN='".$i."'"; 		#check if the msnv allready exist in nhan_vien table
-       $check_from_user ="select * from user where id='".$i."'"; 		#check if the msnv allready exist in nhan_vien table
+       $check_from_user ="select * from user where id='".$i."'"; 								#check if the msnv allready exist in nhan_vien table
 	   $query1=mysql_query($check_from_nhan_vien);												# thực hiện câu truy vấn
        $query2=mysql_query($check_from_user);	
       
@@ -99,7 +99,7 @@ if(isset($_POST['addemp']))
 <div class="form-style-5">
 <form action='add_emp.php' method='POST'>
     <fieldset>
-    <legend><span class="number">1</span> Thêm User </legend>
+    <legend><span class="number">1</span> Thêm nhân viên </legend>
     <input type="text" id="msnv" name="msnv" placeholder="Mã số nhân viên...">
     <input type="date" id="startdate" name="startdate" placeholder="Ngày bắt đầu làm...">
     <input type="text" id="accountantid" name="accountantid" placeholder="Mã số nhân viên kế toán...">
@@ -115,7 +115,7 @@ if(isset($_POST['addemp']))
     </span>
     </div>
     <center>
-        <a href="/user/staff/manager/manager.php"><input class="button" type="button" name="delete" value="Quay về"/></a>
+        <a href="/user/staff/manager/manager.php"><input class="button" type="button" value="Quay về"/></a>
     </center>   
     
 <?php }

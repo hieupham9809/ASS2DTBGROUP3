@@ -44,7 +44,7 @@
 
 <p class="wb-stl-normal"> </p>
 
-<p class="wb-stl-normal"><span class="wb_tr_ok"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/">N</a>hóm</span></p>
+<p class="wb-stl-normal"><span class="wb_tr_ok"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/">Giới thiệu nhóm</a></span></p>
 
 <p class="wb-stl-normal"> </p>
 
@@ -52,7 +52,7 @@
 
 <p class="wb-stl-normal"> </p>
 
-<p class="wb-stl-normal"><span class="wb_tr_ok"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/">T</a>hành viên</span></p>
+<p class="wb-stl-normal"><span class="wb_tr_ok"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/">Tên đề tài</a></span></p>
 
 <p class="wb-stl-normal"> </p>
 
@@ -62,7 +62,7 @@
 
 <p class="wb-stl-normal"> </p>
 
-<p class="wb-stl-normal"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/"><span class="wb_tr_ok">Thailand soup</span></a></p>
+<p class="wb-stl-normal"><a href="%C4%90%C4%83ng-nh%E1%BA%ADp/"><span class="wb_tr_ok">Phần mềm quản lý nhà hàng</span></a></p>
 
 <p class="wb-stl-normal"> </p>
 

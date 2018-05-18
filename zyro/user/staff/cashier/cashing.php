@@ -58,8 +58,10 @@
 			/* xử lý database */
 			if(isset($_POST['cashing']) )
 			{	
+				
 				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
+				mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
 				
 				#Mã số hóa đơn
 				$MSHD = rand_str ($length = 10, $chars = 'ABCDEFGHKLMNPQRSTUVWXYZ123456789');
@@ -73,11 +75,26 @@
 				}
 				
 				#Ngày xuất
-				$date = (new \DateTime())->format('d-m-Y h:m:s');
+				$date = date("Y/m/d");
 				
+				
+				
+				#Check xem tất cả các item có trong bảng item hay chưa
+				$c =1;
+				foreach($_POST['msm'] as $key => $value){
+					$check_item = "select * from item where ma_item='".$value."'";
+					if(mysql_num_rows(mysql_query($check_item))==0 || $value == ""){
+						echo "<div class=\"alert-box error\"><span>error: </span>Không tìm thấy item</div>";
+						$c = 0;
+						break;
+					}
+				}
+				
+				if( $c == 1)
+				{
 				#thêm item vào bảng hoadon_item 			
 				foreach($_POST['msm'] as $key => $value){
-					$add_item = "call add_item('".$value."','".$_POST['count'][$key]."','".$MSHD."')";
+					$add_item = "call add_bill_item('".$MSHD."','".$value."','".$_POST['count'][$key]."')";
 					mysql_query($add_item);
 				}
 				
@@ -85,21 +102,37 @@
 				$status="chưa thanh toán";
 				
 				#Tính tổng tiền 
-				$total = "call total_calc('".$MSHD."')";
-				$query = mysql_query($total);
-				if(mysql_num_rows($query) == 0) echo "<div class=\"alert-box error\"><span>error: </span>Lỗi hệ thống</div>";
+				$total= "call calc_bill('".$MSHD."')";
+				mysql_query($total);
+				
+				
+				#Truy xuất tổng tiền
+				$get_total="SELECT sum(`DON_GIA`) AS `TOTAL` 
+				from `HOA_DON-ITEM` 
+				WHERE `MA_HOA_DON`='".$MSHD."'";
+				$money_query = mysql_query($get_total);
+				
+				if(mysql_num_rows($money_query) == 0) 
+				{
+					echo "<div class=\"alert-box error\"><span>error: </span>Lỗi hệ thống</div>";
+				}
 				else{
-					$row=mysql_fetch_array($query);
-					$money = $row['total'];
 					
+					while($row=mysql_fetch_array($money_query))
+					{
+					$money = $row['TOTAL'];
 					#Thêm hóa đơn vào bảng
-					$add_hoadon="call add_hoadon('".$MSHD."','".$money."','".$date."','".$status."','".$_POST['customer_id']."')";
-					mysql_query($add_hoadon);
+					$add_hoadon="call add_bill('".$MSHD."','".$money."','".$date."','".$status."','".$_POST['customer_id']."','".$_SESSION['userid']."')";
+									
+					$hoadon_query = mysql_query($add_hoadon);
+					}
 					#Chạy tới trang xuất hóa đơn
-					echo"<META http-equiv='refresh' content='0;URL=/bill.php?bill_id=$MSHD'>";
+					echo"<META http-equiv='refresh' content='0;URL=bill.php?bill_id=$MSHD'>";
+					
+					
 				}
 				
-				
+				}
 				
 			}
 			
@@ -143,7 +176,7 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
                             <tr >
-                                <th >Mã món</th>
+                                <th >Mã item</th>
                                 <th >Số lượng</th>
                                 <th>Xóa</th>
                             </tr>
