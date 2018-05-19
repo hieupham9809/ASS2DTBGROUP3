@@ -23,6 +23,19 @@
 	
 		// Turn off all error reporting
 		error_reporting(0);
+		
+		function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
+		{
+				$chars_length = (strlen($chars) - 1);  
+				$string = $chars{rand(0, $chars_length)};
+				for ($i = 1; $i < $length; $i = strlen($string))
+				{
+					$r = $chars{rand(0, $chars_length)
+				};
+				if ($r != $string{$i - 1}) $string .=  $r;  }
+				return $string;
+		}
+		
 
         session_start();
         if(isset($_SESSION['userid']) && $_SESSION['role'] == "cashier")
@@ -43,11 +56,84 @@
             }
 			
 			/* xử lý database */
-			if(isset($_POST['cashing']))
+			if(isset($_POST['cashing']) )
 			{	
+				
 				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
-				echo($_POST['msm']);
+				mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
+				
+				#Mã số hóa đơn
+				$MSHD = rand_str ($length = 10, $chars = 'ABCDEFGHKLMNPQRSTUVWXYZ123456789');
+				
+				#check if MSHD already exist
+				$check_MSHD="select * from hoa_don where ma_hoa_don = '".$MSHD."'";
+				
+				while(mysql_num_rows(mysql_query($check_MSHD))!=0){
+					$MSHD = rand_str ($length = 10, $chars = 'ABCDEFGHKLMNPQRSTUVWXYZ123456789');
+					$check_MSHD="select * from hoa_don where ma_hoa_don = '".$MSHD."'";
+				}
+				
+				#Ngày xuất
+				$date = date("Y/m/d");
+				
+				
+				
+				#Check xem tất cả các item có trong bảng item hay chưa
+				$c =1;
+				foreach($_POST['msm'] as $key => $value){
+					$check_item = "select * from item where ma_item='".$value."'";
+					if(mysql_num_rows(mysql_query($check_item))==0 || $value == ""){
+						echo "<div class=\"alert-box error\"><span>error: </span>Không tìm thấy item</div>";
+						$c = 0;
+						break;
+					}
+				}
+				
+				if( $c == 1)
+				{
+				#thêm item vào bảng hoadon_item 			
+				foreach($_POST['msm'] as $key => $value){
+					$add_item = "call add_bill_item('".$MSHD."','".$value."','".$_POST['count'][$key]."')";
+					mysql_query($add_item);
+				}
+				
+				#tình trạng thanh toán
+				$status="chưa thanh toán";
+				
+				#Tính tổng tiền 
+				$total= "call calc_bill('".$MSHD."')";
+				mysql_query($total);
+				
+				
+				#Truy xuất tổng tiền
+				$get_total="SELECT sum(`DON_GIA`) AS `TOTAL` 
+				from `HOA_DON-ITEM` 
+				WHERE `MA_HOA_DON`='".$MSHD."'";
+				$money_query = mysql_query($get_total);
+				
+				if(mysql_num_rows($money_query) == 0) 
+				{
+					echo "<div class=\"alert-box error\"><span>error: </span>Lỗi hệ thống</div>";
+				}
+				else{
+					
+					while($row=mysql_fetch_array($money_query))
+					{
+					$money = $row['TOTAL'];
+					#Thêm hóa đơn vào bảng
+					$add_hoadon="call add_bill('".$MSHD."','".$money."','".$date."','".$status."','".$_POST['customer_id']."','".$_SESSION['userid']."')";
+									
+					$hoadon_query = mysql_query($add_hoadon);
+					}
+					#Chạy tới trang xuất hóa đơn
+					echo"<META http-equiv='refresh' content='0;URL=bill.php?bill_id=$MSHD'>";
+					
+					
+				}
+				
+				}
+				
 			}
 			
             ?>
@@ -90,7 +176,7 @@
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
                             <tr >
-                                <th >Mã món</th>
+                                <th >Mã item</th>
                                 <th >Số lượng</th>
                                 <th>Xóa</th>
                             </tr>
@@ -103,9 +189,9 @@
 							
 							<td><img src='/gallery/plus.png' width='30px' onclick='add_item()'></td>
 							<td><input class="button_red" type="submit" name="delete_all" onclick='del_all()' value="Xóa hết"></td>
-							<td><input class="button" type="submit" name="cashing" value="Tính tiền"/></td>
-							
+							<td><input class="button" type="submit" name="cashing" value="Tính tiền"/></td>							
 							</tr>
+							
                         </tbody>
                     </table>
                 </div>
@@ -140,7 +226,8 @@
 					}
 					else {
 						if(confirm("Are you sure you want to delete this item?")){
-							id= rowid.slice(6); 
+							id= rowid[5]; 
+						
 							document.getElementById("item_table").getElementsByTagName('tbody')[0].deleteRow(id);
 							update_rows_index();
 							num_item--;
@@ -157,8 +244,8 @@
 					var ma_mon  = newRow.insertCell(0);
 					var number	= newRow.insertCell(1);
 					var del = newRow.insertCell(2);
-					ma_mon.innerHTML="<input type='text' name='msm' style='width:50%'/>";
-					number.innerHTML="<input type='number' name='count' style='width:50%' value='1' />";
+					ma_mon.innerHTML="<input type='text' name='msm[]' style='width:50%'/>";
+					number.innerHTML="<input type='number' name='count[]' style='width:50%' value='1' />";
 					del.innerHTML ="<image src='/gallery/delete.png' width='30px'  id='del_but' onclick=\"del_item('"+ index +"')\">";
 					
 					curent_index++;

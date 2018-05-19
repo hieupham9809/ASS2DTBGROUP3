@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width,initial-scale=1" />
     <link rel="stylesheet" type="text/css" href="/css/login.css" media="all" />
     <link rel="stylesheet" type="text/css" href="/css/boxes.css" media="all" />
-    
+    <link rel="stylesheet" type="text/css" href="/css/background.css" media="all" />
     <link rel="stylesheet" type="text/css" href="/css/footer.css" media="all" />
     <link rel="shortcut icon" href="/gallery/logo.png" type="image/png"/>
 </head>
