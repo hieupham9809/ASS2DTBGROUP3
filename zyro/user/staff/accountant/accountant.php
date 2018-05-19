@@ -62,10 +62,14 @@
                                 <th >SỐ GIỜ TĂNG CA</th>
                                 <th >TIỀN THƯỞNG</th>
 								<th >TIỀN PHẠT</th>
+								<th >LƯƠNG</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
+				<form action='accountant.php' method='POST'>
+					<input class="button_red" type="submit" name="insert" value="Thêm">
+			
                 <div class="tbl-content">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <tbody>
@@ -74,27 +78,30 @@
             mysql_select_db("id5514461_restaurant",$conn);
             $sql="select * from `bang_luong` order by MA_SO_NHAN_VIEN DESC";
             $query=mysql_query($sql);
-            if(mysql_num_rows($query) == "")
-            {
-                echo "<tr><td colspan=5 align=center>Chua co username nao</td></tr>";
-            }
-            else
-            {
-                $stt=0;
-                while($row=mysql_fetch_array($query))
-                {
-                    echo "<tr >";
-                    echo "<td >$row[MA_SO_NHAN_VIEN]</td>";
-                    echo "<td >$row[THANG]</td>";
-                    echo "<td >$row[SO_NGAY_NGHI]</td>";
-					echo "<td >$row[SO_GIO_TANG_CA]</td>";
-					echo "<td >$row[TIEN_THUONG]</td>";
-					echo "<td >$row[TIEN_PHAT]</td>";
-                    
-                   echo "</tr>";
-                }
-            }
-        ?>
+            echo "<tr >";
+           // echo "<td >$row[MA_SO_NHAN_VIEN]</td>";
+			echo "<td ><input type=\"number\" name=\"ma_so_nhan_vien\" class=\"field-style field-split align-left\" /></td>";
+            echo "<td ><input type=\"number\" name=\"thang\" class=\"field-style field-split align-left\" /></td>";
+			echo "<td ><input type=\"number\" name=\"so_ngay_nghi\" class=\"field-style field-split align-left\"  /></td>";
+			echo "<td ><input type=\"number\" name=\"so_gio_tang_ca\" class=\"field-style field-split align-left\" /></td>";
+			echo "<td ><input type=\"number\" name=\"tien_thuong\" class=\"field-style field-split align-left\"  /></td>";
+			echo "<td ><input type=\"number\" name=\"tien_phat\" class=\"field-style field-split align-left\"  /></td>";
+			echo "<td ><input type=\"number\" name=\"luong_chinh_thuc\" class=\"field-style field-split align-left\"  /></td>";
+			
+        
+			if(isset($_POST['insert']))
+			{
+				$sql_insert = "call cal_salaryy_init('".$_POST['ma_so_nhan_vien']."','".$_POST['thang']."','".$_POST['so_ngay_nghi']."','".$_POST['so_gio_tang_ca']."','".$_POST['tien_thuong']."','".$_POST['tien_phat']."');";
+				//$sql_insert2 = "BEGIN
+//INSERT into `BANG_LUONG` (`MA_SO_NHAN_VIEN`,`THANG`,`SO_NGAY_NGHI`,`SO_GIO_TANG_CA`,`TIEN_THUONG`,`TIEN_PHAT`) VALUES (".$_POST['ma_so_nhan_vien'].",".$_POST['thang'].",".$_POST['so_ngay_nghi'].",".$_POST['so_gio_tang_ca'].",".$_POST['tien_thuong'].",".$_POST['tien_phat'].");
+//update `BANG_LUONG`,`NHAN_VIEN` SET `BANG_LUONG`.`LUONG_CHINH_THUC`=`NHAN_VIEN`.`LUONG`-'".$_POST['so_ngay_nghi']."'*100+('".$_POST['so_gio_tang_ca']."'/8)*200+'".$_POST['tien_thuong']."'-'".$_POST['tien_phat']."'
+//WHERE `BANG_LUONG`.`MA_SO_NHAN_VIEN`=".$_POST['ma_so_nhan_vien']." and `BANG_LUONG`.`THANG`=".$_POST['thang'].";
+//END";			
+				echo $sql_insert;
+				$query_insert = mysql_query($sql_insert); 
+			}
+		
+		?>
 		<?php
 			if(isset($_POST['salary']))
 				{
@@ -106,16 +113,16 @@
                     </table>
                 </div>
 				<center>
-					<form >
-						<input class="button_red" type="button" value="Trở lại" onclick="history.go(-2)">
-					</form>
+				
+					<input class="button_red" type="button" value="Trở lại" onclick="history.go(-2)">
+					
 				</center> 	
             </section>
 			
 			
 			
 			
-			
+			</form>
       <?php  }    
             else{
                 echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
