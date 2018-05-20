@@ -64,7 +64,6 @@
 								<th >Ngày bắt đầu</th>
 								<th >Lương</th>
 								<th >MSNV kế toán</th>
-								<th >MSNV quản lý</th>
 								<th ></th>
 							
                             </tr>
@@ -78,7 +77,7 @@
             $conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
             mysql_select_db("id5514461_restaurant",$conn);
 			mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
-            $sql="select * from nhan_vien order by MA_SO_NHAN_VIEN DESC";		
+            $sql="call get_info_allemp()";		
             $query=mysql_query($sql);
             if(mysql_num_rows($query) == "")
             {
@@ -99,12 +98,11 @@
                     echo "<td style='font-size: 15px'>$row[SDT]</td>";
                     echo "<td style='font-size: 15px'>$row[NGAY_BAT_DAU_LAM]</td>";
 					echo "<td style='font-size: 15px'>$row[LUONG]</td>";
-                    echo "<td style='font-size: 15px'>$row[MA_SO_NHAN_VIEN_KE_TOAN]</td>";					
-                    echo "<td style='font-size: 15px'>$row[MA_SO_NHAN_VIEN_QUAN_LI]</td>";
+                    echo "<td style='font-size: 15px'>$row[MA_SO_NHAN_VIEN_KE_TOAN]</td>";			
 					
                     if($row[MA_SO_NHAN_VIEN]!=$_SESSION['userid'])
                     {
-                        echo "<td style='font-size: 15px'><input class=\"button\" onclick=\"edit_emp($row[MA_SO_NHAN_VIEN],$row[NGAY_BAT_DAU_LAM],$row[MA_SO_NHAN_VIEN_KE_TOAN])\" type=\"button\" name=\"edit\" value=\"Edit\"/></td>";
+                        echo "<td style='font-size: 15px'><input class=\"button\" onclick=\"edit_emp($row[MA_SO_NHAN_VIEN],$row[NGAY_BAT_DAU_LAM],$row[MA_SO_NHAN_VIEN_KE_TOAN],$row[MA_SO_NHAN_VIEN_QUAN_LI])\" type=\"button\" name=\"edit\" value=\"Edit\"/></td>";
 					
                     }else
                     {
@@ -142,17 +140,12 @@
 								<label for="msnv">Mã số nhân viên</label>
 								<input type="text" id="msnv" name="msnv">
 								<label for="start">Ngày bắt đầu</label>
-								<input type="text" id="start" name="start">
+								<input type="date" id="start" name="start">
 								<label for="accountant_id">Mã số nhân viên kế toán</label>
-								<input type="text" id="accountant_id" name="accountant_id">								
-								<label for="role">Chức vụ</label>
-								<select id="role" name="role">
-									<option value="manager">Quản lý</option>			
-									<option value="accountant">Kế toán</option>
-									<option value="cashier">Thu ngân</option>
-									<option value="chief">Đầu bếp</option>
-									<option value="staff">Nhân viên khác</option>
-								</select>
+								<input type="text" id="accountant_id" name="accountant_id">	
+								<label for="accountant_id">Mã số nhân viên quản lý</label>
+								<input type="text" id="manager_id" name="manager_id">									
+								
 							</fieldset>
 							<input type="submit" value="Cập nhật" name='submit' /> 		
 											
@@ -179,7 +172,7 @@
 				// Get the <span> element that closes the modal
 				var span = document.getElementsByClassName("close")[0];
 				
-				function edit_emp(msnv,start_date,account)
+				function edit_emp(msnv,start_date,account,mana)
 				{
 					
 					modal.style.display = "block";
@@ -188,6 +181,7 @@
 					document.getElementById("msnv").defaultValue=msnv;
 					document.getElementById("start").defaultValue=start_date;
 					document.getElementById("accountant_id").defaultValue=account;
+					document.getElementById("manager_id").defaultValue=mana;
 				
 				}
 				

@@ -35,7 +35,20 @@
 		
 		$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
         mysql_select_db("id5514461_restaurant",$conn);
+		
+		
 		mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
+		/*Import tiếng việt vào database*/
+		mysql_query("SET character_set_client=utf8", $conn); 				
+		mysql_query("SET character_set_connection=utf8", $conn);
+		
+		
+		if(isset($_POST['delete'])){
+			$del="call 	del_bill_billitem('".$mshd."')";
+			mysql_query($del);
+			echo"<META http-equiv='refresh' content='0;URL=cashing.php'>";
+		}
+		
 		
 		if(isset($_POST['thanh_toan'])){
 			$status="đã thanh toán";
@@ -151,11 +164,13 @@
 						</tbody>
 					</table>
 					
+					<?php if(!isset($_POST['thanh_toan'])){ ?>
+					<form action="bill.php?bill_id=<?php echo $mshd; ?>" method="POST">					
+					<input type="submit" class="btn btn-success btn-lg btn-block" name="thanh_toan" value="Thanh toán">					
+					<input type="submit" class="btn btn-success btn-lg btn-block" style="background-color: #DF0029" onclick="del()" name="delete" value="Hủy hóa đơn">
 					
-					<form action="bill.php?bill_id=<?php echo $mshd; ?>" method="POST">
-					<input type="submit" class="btn btn-success btn-lg btn-block" name="thanh_toan" value="Thanh toán">
-					</td>
 					</form>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
@@ -164,6 +179,13 @@
         <a href="cashing.php"><input class="button_red" type="button" name="back" value="Quay về"/></a>
 		</center>        
 		
+		<script type="text/javascript">
+			function del(){
+				if(confirm("Are you sure ?")){
+					
+				}
+			}
+		</script>
 		
 		
 	</body>

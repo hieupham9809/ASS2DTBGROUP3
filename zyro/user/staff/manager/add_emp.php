@@ -59,9 +59,18 @@ if(isset($_POST['addemp']))
       {
        $a=$_POST['accountantid'];
       }
+	  
+	  if($_POST['salary'] == NULL )
+      {
+        echo "<div class=\"alert-box error\"><span>error: </span>Vui lòng nhập lương</div>";
+      }
+     else
+      {
+       $salary=$_POST['salary'];
+      }
      
      
-    if($i & $s & $a) #truy xuất dữ liệu từ database
+    if($i & $s & $a & $salary) #truy xuất dữ liệu từ database
   {
       $conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
         mysql_select_db("id5514461_restaurant",$conn);
@@ -81,7 +90,7 @@ if(isset($_POST['addemp']))
 	   }
        else
        {
-        $insert_emp="CALL `add_emp`('".$i."', '".$s."', '".$a."', '".$_SESSION['userid']."');";
+        $insert_emp="CALL add_emp('".$i."', '".$s."', '".$a."', '".$_SESSION['userid']."','".$salary."');";
         mysql_query($insert_emp);
 		if(mysql_num_rows(mysql_query($check_from_nhan_vien))==0) echo "<div class=\"alert-box error\"><span>error: </span>Xảy ra lỗi</div>";
 		else echo "<div class=\"alert-box success\"><span>Success: </span>Thêm nhân viên mới thành công</div>";
@@ -103,6 +112,7 @@ if(isset($_POST['addemp']))
     <input type="text" id="msnv" name="msnv" placeholder="Mã số nhân viên...">
     <input type="date" id="startdate" name="startdate" placeholder="Ngày bắt đầu làm...">
     <input type="text" id="accountantid" name="accountantid" placeholder="Mã số nhân viên kế toán...">
+	<input type="text" id="salary" name="salary" placeholder="Lương...">
     </fieldset>
     <input type="submit" value="Submit" name='addemp'> 
 </div>

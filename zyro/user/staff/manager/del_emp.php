@@ -10,7 +10,7 @@
 		mysql_select_db("id5514461_restaurant",$conn);
 		
 		#database query command
-		$sql="call del_emp('".$msnv."')";
+		$sql="call delete_emp('".$msnv."')";
 		mysql_query($sql);
 		
 		#the notification

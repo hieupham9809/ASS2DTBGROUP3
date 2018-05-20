@@ -41,6 +41,9 @@
                 }
                 else echo "<div class=\"alert-box error\"><span>NOTI: </span>$noti</div>";
             }
+			
+			
+			
             ?>
         
 			<!-- button logout nè -->

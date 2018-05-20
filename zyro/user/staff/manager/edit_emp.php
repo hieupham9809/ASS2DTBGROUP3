@@ -8,7 +8,8 @@
 			#Get new infor
 			$msnv=$_POST['msnv'];
 			$start_date=$_POST['start'];
-			$accountant_id = $POST['accountant_id'];
+			$accountant_id = $_POST['accountant_id'];
+			$manager_id=$_POST['manager_id'];
 			
 			#Connect to database
 			$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
@@ -16,7 +17,7 @@
 			
 			#query command
 			
-			$sql="call edit_emp('".$msnv."','".$start_date."','".$accountant_id."')";
+			$sql="call edit_emp('".$msnv."','".$start_date."','".$accountant_id."','".$manager_id."')";
 			mysql_query($sql);
 			
 			#the notification
