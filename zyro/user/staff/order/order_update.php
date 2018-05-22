@@ -136,6 +136,8 @@
 					
 					
 					
+					
+					
 						
 						
 						
@@ -196,6 +198,20 @@
                                 <th>Xóa</th>
                             </tr>
                         </thead>
+						<tbody>
+						<?php
+						$check_mdh ="call get_item_from_donhang('".$MSDH."')";
+						$check_query=mysql_query($check_mdh);
+						if(mysql_num_rows($check_query)!=0){
+							while($row=mysql_fetch_array($check_query)){
+							
+								echo "<input type='text' name='msm[]' style='width:50%' value='".$row[MA_ITEM]."'/>";
+							}
+						
+						}
+						?>
+						
+						</tbody>
                     </table>
             </div>
 	
@@ -256,7 +272,7 @@
 			<script type="text/javascript">
 				var curent_index=0;
 				var num_item = 0;
-				add_item();
+				
 				
 				function update_rows_index()
 				{

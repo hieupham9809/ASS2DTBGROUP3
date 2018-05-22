@@ -75,7 +75,7 @@
 			
 			<h1> </h1>
 			<div class="tbl-header">
-				<div style="background-color:#cccc00"> CÁC ĐƠN HÀNG ĐÃ TẠO: </div>
+				<div> CÁC ĐƠN HÀNG ĐÃ TẠO: </div>
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
                             <tr >

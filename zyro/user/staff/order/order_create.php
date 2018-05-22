@@ -78,7 +78,7 @@
 			{
 				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
-				//mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
+				mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
 				mysql_query("SET character_set_client=utf8", $conn); 				
 				mysql_query("SET character_set_connection=utf8", $conn);
 				if(isset($_POST['insert']) )
@@ -125,7 +125,7 @@
 					{
 					#thêm item vào bảng don_dat_hang-item 			
 					foreach($_POST['msm'] as $key => $value){
-						$add_item = "call add_dondathang_item('".$MSDH."','".$value."','".$_POST['count'][$key]."')";/////// function need to implement///
+						$add_item = "call add_dondathang_item('".$MSDH."','".$value."','".$_POST['count'][$key]."',)";/////// function need to implement///
 						mysql_query($add_item);																//bỏ cột don_gia của bảng don_dat_hang-item
 					}
 					
