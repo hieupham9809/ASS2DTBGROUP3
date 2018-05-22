@@ -75,16 +75,21 @@
 			session_start();
 			if(isset($_SESSION['userid']) /*&& $_SESSION['role'] == "cashier"*/)
 			{
+				
 				#Mã số đơn hàng
 				$MSDH = $_GET['msdh'];
 				#Mã số khách hàng
 				$MSKH = $_GET['mskh'];
+				
+				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
+				mysql_select_db("id5514461_restaurant",$conn);
+				mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
+				mysql_query("SET character_set_client=utf8", $conn); 				
+				mysql_query("SET character_set_connection=utf8", $conn);				/* important to write vietnamese */
+				
 				if(isset($_POST['insert']) )
 				{	
-					$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
-					mysql_select_db("id5514461_restaurant",$conn);
-					mysql_query("SET character_set_client=utf8", $conn); 				
-					mysql_query("SET character_set_connection=utf8", $conn);				/* important to write vietnamese */
+					
 						
 					
 					
@@ -155,7 +160,7 @@
 					
 					
 				}
-			}
+			
 ?>
 	<h1> Cập nhật/bổ sung đơn đặt hàng </h1>
 <div class="row">
@@ -170,7 +175,7 @@
                             <tr >
                                 <th >Mã đơn hàng</th>
                                 <?php
-								echo "<td ><input type=\"text\" name=\"order_id\" style=\"width:50%\" value=$MSDH></td>";
+								echo "<td ><input type=\"text\" name=\"order_id\" style=\"width:50%\" value='$MSDH'></td>";
 								?>
 							
                             </tr>
@@ -195,21 +200,28 @@
                             <tr >
                                 <th >Mã item</th>
                                 <th >Số lượng</th>
-                                <th>Xóa</th>
+                                <th>Trạng thái</th>
                             </tr>
                         </thead>
 						<tbody>
 						<?php
+						
+						
+						
 						$check_mdh ="call get_item_from_donhang('".$MSDH."')";
-						$check_query=mysql_query($check_mdh);
-						if(mysql_num_rows($check_query)!=0){
-							while($row=mysql_fetch_array($check_query)){
+						$query1=mysql_query($check_mdh);
+						if(mysql_num_rows($query1)!=""){
+							
+							while($row=mysql_fetch_array($query1)){
 								echo"<tr>";
 								echo "<th><input type='text' name='msm[]' style='width:50%' value='".$row[MA_ITEM]."'/></th>";
+								echo "<th><input type='number' name='count[]' style='width:50%' value='".$row[SO_LUONG]."' /></th>";
+								echo "<th><input type='text' name='status[]' style='width:50%' value='".$row[TRANG_THAI]."' /></th>";
 								echo"</tr>";
 							}
 						
 						}
+						
 						?>
 						
 						</tbody>
@@ -222,7 +234,7 @@
 							
 							<td><img src='/gallery/plus.png' width='30px' onclick='add_item()'></td>
 							<td><input class="button_red" type="submit" name="delete_all" onclick='del_all()' value="Xóa hết"></td>
-							<td><input class="button" type="submit" name="insert" value="Tạo đơn hàng"/></td>							
+							<td><input class="button" type="submit" name="update" value="Cập nhật"/></td>							
 							</tr>
 							
                         </tbody>
@@ -245,8 +257,11 @@
                                 
                             </tr>
 							<?php // HIỂN THỊ LIST ITEM GỢI Ý CHO NHÂN VIÊN ORDER // CẦN HIỆN THỰC HÀM SELECT TRẢ VỀ CỘT MÃ ITEM, TÊN MÓN, KÍCH THƯỚC
+								
 								$sql_select = "call get_list_item()";
+								
 								$sql_query = mysql_query($sql_select);
+								
 								
 								 while($sql_row=mysql_fetch_array($sql_query))
 								 {
@@ -273,7 +288,13 @@
 			<script type="text/javascript">
 				var curent_index=0;
 				var num_item = 0;
+				count_row();
 				
+				function count_row(){
+					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
+					current_index = tableRef.rows.length;
+					num_item=tableRef.rows.length;
+				}
 				
 				function update_rows_index()
 				{
@@ -332,8 +353,7 @@
 						current_index=0;
 						num_item=0;
 						
-						//Tạo row 0
-						add_item();
+						
 						
 					}
 				}
@@ -341,3 +361,9 @@
 			</script>
 </body>
 </html>
+<?php
+			}
+			else{
+				
+			}
+?>
