@@ -47,20 +47,22 @@
 				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
 	?>
-	<form action='order.php' method='POST'>    
+	<form action='order_update.php' method='POST'>    
 		<input class="button_red" type="submit" name="logout" value="Đăng xuất">
 	</form>
-	<form >
+	
 		<input class="button_blue" type="button" value="Trở lại      " onclick="history.go(-1)">
-	</form>
+	
 </head>
 
 
 <body>
+<form action='order_update.php' method='POST'>
 <?php
-	
+			
 		// Turn off all error reporting
 			error_reporting(0);
+			
 			function rand_str($length = 32, $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890')
 			{
 				$chars_length = (strlen($chars) - 1);  
@@ -73,7 +75,8 @@
 				return $string;
 			}
 			session_start();
-			if(isset($_SESSION['userid']) /*&& $_SESSION['role'] == "cashier"*/)
+			
+			if(isset($_SESSION['userid']) && $_SESSION['role'] == "order")
 			{
 				
 				#Mã số đơn hàng
@@ -87,32 +90,12 @@
 				mysql_query("SET character_set_client=utf8", $conn); 				
 				mysql_query("SET character_set_connection=utf8", $conn);				/* important to write vietnamese */
 				
-				if(isset($_POST['insert']) )
+			
+				
+				if(isset($_POST['update']) )
 				{	
-					
-						
-					
-					
-					#check if MSDH already exist
-					$check_MSDH="select * from don_dat_hang where ma_don_hang = '".$MSDH."'";
-					
-					while(mysql_num_rows(mysql_query($check_MSDH))!=0)
-					{
-						$MSDH = rand_str ($length = 10, $chars = 'ABCDEFGHKLMNPQRSTUVWXYZ123456789');
-						$check_MSDH="select * from hoa_don where ma_hoa_don = '".$MSDH."'";
-					}
-					
-					#Ngày xuất
-					$date = date("Y/m/d");
-			////////////////////////////////////////////////////////////////////			
-					#tình trạng thanh toán
-					$status="chưa thanh toán";
-					
-					#Thêm đơn đặt hàng, msnv vào bảng don_dat_hang //
-						$add_donhang="call add_dondathang('".$MSDH."','".$date."','".$status."','".$_SESSION['userid']."')";
-										
-						$hoadon_query = mysql_query($add_donhang);
-					
+					$MSDH = $_POST['order_id'];
+
 					
 					#Check xem tất cả các item có trong bảng item hay chưa
 					$c =1;
@@ -127,44 +110,27 @@
 				
 					if( $c == 1)
 					{
-						#thêm item vào bảng don_dat_hang-item 			
-						foreach($_POST['msm'] as $key => $value){
-						$add_item = "call add_bill_item('".$MSDH."','".$value."','".$_POST['count'][$key]."')";/////// function need to implement///
-						mysql_query($add_item);	
-					
-						//bỏ cột don_gia của bảng don_dat_hang-item
+						
+						# Xóa dữ liệu cũ 
+						$del_old = "call del_mdh('".$MSDH."')";
+						mysql_query($del_old);
+						
+						
+						#thêm item vào bảng don_dat_hang-mon
+						foreach($_POST['msm'] as $key => $value)
+						{
+							$add_item = "call add_dondathang_item('".$MSDH."','".$value."','".$_POST['count'][$key]."')";/////// function need to implement///
+							mysql_query($add_item);	
 						}
 					}
 					
-					
-					
-					
-					
-					
-					
-					
-						
-						
-						
-						
-						#Thêm đơn đặt hàng - mã khách hàng vào bảng don_dat_hang-khach_chinh_sua
-						
-						
-						
-						#<?php echo $row[]
-						
-						
-						
-					
-					
-					
-					
+
 				}
-			
+			}
 ?>
 	<h1> Cập nhật/bổ sung đơn đặt hàng </h1>
 <div class="row">
-<form action='order_update.php' method='POST'>  
+  
 <div class="column left">
 	<section>
 		
@@ -362,8 +328,9 @@
 </body>
 </html>
 <?php
-			}
+		/*	}
 			else{
 				
 			}
+		*/
 ?>

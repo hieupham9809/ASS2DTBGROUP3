@@ -25,6 +25,7 @@
 			$MSDH = $_GET['msdh'];
 			$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 			mysql_select_db("id5514461_restaurant",$conn);
+			mysql_query("SET character_set_results=utf8", $conn);
 			mysql_query("SET character_set_client=utf8", $conn); 				
 			mysql_query("SET character_set_connection=utf8", $conn);			/* important to write vietnamese */
 		}
