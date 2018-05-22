@@ -105,6 +105,7 @@ if(isset($_POST['adduser']))
 			<option value="accountant">Kế toán</option>
 			<option value="cashier">Thu ngân</option>
 			<option value="chief">Đầu bếp</option>
+			<option value="order">Order</option>
 			<option value="staff">Nhân viên khác</option>
         </select>
 
