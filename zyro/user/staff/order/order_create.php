@@ -125,7 +125,7 @@
 					{
 					#thêm item vào bảng don_dat_hang-item 			
 					foreach($_POST['msm'] as $key => $value){
-						$add_item = "call add_dondathang_item('".$MSDH."','".$value."','".$_POST['count'][$key]."',)";/////// function need to implement///
+						$add_item = "call add_dondathang_item('".$MSDH."','".$value."','".$_POST['count'][$key]."')";/////// function need to implement///
 						mysql_query($add_item);																//bỏ cột don_gia của bảng don_dat_hang-item
 					}
 					
