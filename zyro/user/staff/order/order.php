@@ -33,6 +33,7 @@
 
 			$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 					mysql_select_db("id5514461_restaurant",$conn);
+					mysql_query("SET character_set_results=utf8", $conn);
 					mysql_query("SET character_set_client=utf8", $conn); 				
 					mysql_query("SET character_set_connection=utf8", $conn);				/* important to write vietnamese */
 			/*Nút logout */
@@ -97,11 +98,15 @@
 
 									while($row=mysql_fetch_array($sql_query_list))
 									{
-										echo "<tr >";
-										echo "<th ><a href=\"order_update.php?msdh=$row[MA_DON_HANG]&mskh=$row[MA_SO_KHACH_HANG]\">$row[MA_DON_HANG] </th>";
-										echo "<th > $row[MA_SO_KHACH_HANG] </th>";
-										echo "<th ><a href=\"order_state.php?msdh=$row[MA_DON_HANG]\">$row[MA_DON_HANG] </th>";
-										echo "</tr>";
+										#KIỂM TRA ĐƠN HÀNG ĐÃ HOÀN THÀNH HAY CHƯA
+										if ($row['TINH_TRANG'] == 'chưa thanh toán')
+										{
+											echo "<tr >";
+											echo "<th ><a href=\"order_update.php?msdh=$row[MA_DON_HANG]&mskh=$row[MA_SO_KHACH_HANG]\">$row[MA_DON_HANG] </th>";
+											echo "<th > $row[MA_SO_KHACH_HANG] </th>";
+											echo "<th ><a href=\"order_state.php?msdh=$row[MA_DON_HANG]\">$row[MA_DON_HANG] </th>";
+											echo "</tr>";
+										}
 									}
 								?>
                             </tr>
