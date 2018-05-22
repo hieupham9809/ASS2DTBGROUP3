@@ -76,8 +76,7 @@
         <?php 
             $conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
             mysql_select_db("id5514461_restaurant",$conn);
-            $sql="select * from `bang_luong` order by MA_SO_NHAN_VIEN DESC";
-            $query=mysql_query($sql);
+            
             echo "<tr >";
            // echo "<td >$row[MA_SO_NHAN_VIEN]</td>";
 			echo "<td ><input type=\"number\" name=\"ma_so_nhan_vien\" class=\"field-style field-split align-left\" /></td>";
