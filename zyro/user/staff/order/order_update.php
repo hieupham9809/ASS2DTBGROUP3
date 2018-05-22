@@ -204,8 +204,9 @@
 						$check_query=mysql_query($check_mdh);
 						if(mysql_num_rows($check_query)!=0){
 							while($row=mysql_fetch_array($check_query)){
-							
-								echo "<input type='text' name='msm[]' style='width:50%' value='".$row[MA_ITEM]."'/>";
+								echo"<tr>";
+								echo "<th><input type='text' name='msm[]' style='width:50%' value='".$row[MA_ITEM]."'/></th>";
+								echo"</tr>";
 							}
 						
 						}
