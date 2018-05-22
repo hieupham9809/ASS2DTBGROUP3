@@ -16,7 +16,10 @@
 
 
 
+
 <body>
+
+
    
     
     <?php
@@ -55,16 +58,20 @@
                 else echo "<div class=\"alert-box error\"><span>NOTI: </span>$noti</div>";
             }
 			
-			/* xử lý database */
-			if(isset($_POST['cashing']) )
-			{	
-				
-				$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
+			$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
 				mysql_select_db("id5514461_restaurant",$conn);
 				mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
 				/*Import tiếng việt vào database*/
 				mysql_query("SET character_set_client=utf8", $conn); 				
 				mysql_query("SET character_set_connection=utf8", $conn);
+			
+			
+			
+			/* xử lý database */
+			if(isset($_POST['cashing']) )
+			{	
+				
+				
 				#Mã số hóa đơn
 				$MSHD = rand_str ($length = 10, $chars = 'ABCDEFGHKLMNPQRSTUVWXYZ123456789');
 				
@@ -174,6 +181,19 @@
                     </table>
                 </div>
 				
+				<div class="tbl-header">
+                    <table cellpadding="0" cellspacing="0" border="0">
+                        <thead>
+                            <tr >
+                                <th >Mã đơn đặt hàng</th>
+                                <th ><input type='text' name='order' style='width:50%'/></th>
+								<th><input class="button" type="submit" name="order_submit" value="Tìm"/></th>
+                                
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+				
                 <div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
                         <thead>
@@ -202,12 +222,15 @@
 			
 			
 			
+			
             <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
             <script  src="/js/tables.js"></script>
+			
+			
 			<script type="text/javascript">
 				var curent_index=0;
 				var num_item = 0;
-				add_item();
+				//add_item();
 				
 				function update_rows_index()
 				{
@@ -237,6 +260,24 @@
 						}
 					}
 				}
+				
+				function add_item_new(ma_item,so_luong)
+				{
+					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
+					var newRow   = tableRef.insertRow(tableRef.rows.length-1);
+					var index = "item_"+(tableRef.rows.length-2);
+					newRow.id = index;
+					var ma_mon  = newRow.insertCell(0);
+					var number	= newRow.insertCell(1);
+					var del = newRow.insertCell(2);
+					ma_mon.innerHTML="<input type='text' name='msm[]' style='width:50%' value='"+ma_item+"'/>";
+					number.innerHTML="<input type='number' name='count[]' style='width:50%' value='"+so_luong+"' />";
+					del.innerHTML ="<image src='/gallery/delete.png' width='30px'  id='del_but' onclick=\"del_item('"+ index +"')\">";
+					
+					curent_index++;
+					num_item++;
+				}
+				
 				function add_item()
 				{					
 					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
@@ -274,7 +315,18 @@
 
 			</script>
 			
-			
+			<?php
+				if(isset($_POST['order_submit'])){
+				$mdh= $_POST['order'];
+				$don_hang="call get_item_from_donhang('".$mdh."')";
+				$dh_query= mysql_query($don_hang);
+				if(mysql_num_rows($dh_query)!=0){
+					while($row=mysql_fetch_array($dh_query)){
+						echo "<script type='text/javascript'>add_item_new(\"".$row[MA_ITEM]."\",\"".$row[SO_LUONG]."\");</script>";
+					}
+				}
+			}
+			?>
 			
       <?php  }    
             else{

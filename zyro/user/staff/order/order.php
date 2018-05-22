@@ -99,7 +99,7 @@
 									while($row=mysql_fetch_array($sql_query_list))
 									{
 										#KIỂM TRA ĐƠN HÀNG ĐÃ HOÀN THÀNH HAY CHƯA
-										if ($row['TINH_TRANG'] == 'chưa thanh toán')
+										if ($row['TINH_TRANG'] == 'Chưa hoàn thành')
 										{
 											echo "<tr >";
 											echo "<th ><a href=\"order_update.php?msdh=$row[MA_DON_HANG]&mskh=$row[MA_SO_KHACH_HANG]\">$row[MA_DON_HANG] </th>";

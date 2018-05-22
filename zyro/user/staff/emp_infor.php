@@ -27,6 +27,7 @@
 			
 			$conn=mysql_connect("localhost","id5514461_admin","12345678") or die("can't connect this database");
             mysql_select_db("id5514461_restaurant",$conn);
+			mysql_query("SET character_set_results=utf8", $conn);				/* important to write vietnamese */
 			$sql = "call get_info_emp('".$_SESSION['userid']."');"; // list employee SQL command
 			$query=mysql_query($sql);
 			if(mysql_num_rows($query) == "")
