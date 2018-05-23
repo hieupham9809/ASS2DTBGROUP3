@@ -34,7 +34,11 @@
 				session_destroy();
 				echo"<META http-equiv='refresh' content='0;URL=/login.php'>";
 			}
+			if(isset($_POST['return']))
+			{
 			
+				echo"<META http-equiv='refresh' content='0;URL=/user/staff/accountant/accountant.php'>";
+			}
             $noti=$_GET['noti'];
             if($noti!=""){
                 if($noti=="SUCCESS"){
@@ -96,10 +100,10 @@
 				echo $sql5;
 				$i = $i + 1;
 				//
-				$query5=mysqli_query($sql5);
+				$query5=mysql_query($sql5);
 				
 				}
-				//echo"<META http-equiv='refresh' content='0;URL=/user/staff/accountant/accountant_salary_update.php'>";
+				echo"<META http-equiv='refresh' content='0;URL=/user/staff/accountant/accountant_salary.php'>";
 			}
                 $stt=0;
 				
@@ -133,7 +137,7 @@
                 </div>
 					<center>
 						
-							<input class="button_red" type="button" value="Trở lại" onclick="history.go(-2)">
+							<input class="button_red" type="submit" name="return" value="Trở lại" >
 							<!-- button update -->
 						
 						

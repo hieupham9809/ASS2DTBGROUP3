@@ -162,24 +162,13 @@
                         <thead>
                             <tr >
                                 <th >Mã khách hàng</th>
-                                <th ><input type='text' name='customer_id' style='width:50%'/></th>
+                                <th ><input type='text' id='mskh' name='customer_id' style='width:50%'/></th>
                                 
                             </tr>
                         </thead>
                     </table>
                 </div>
 				
-				<div class="tbl-header">
-                    <table cellpadding="0" cellspacing="0" border="0">
-                        <thead>
-                            <tr >
-                                <th >Mã khuyến mãi</th>
-                                <th ><input type='text' name='KM' style='width:50%'/></th>
-                                
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
 				
 				<div class="tbl-header">
                     <table cellpadding="0" cellspacing="0" border="0">
@@ -261,8 +250,10 @@
 					}
 				}
 				
-				function add_item_new(ma_item,so_luong)
+				function add_item_new(ma_item,so_luong,ms_kh)
 				{
+					var mskh = document.getElementById('mskh');
+					mskh.value=ms_kh;
 					var tableRef = document.getElementById('item_table').getElementsByTagName('tbody')[0];
 					var newRow   = tableRef.insertRow(tableRef.rows.length-1);
 					var index = "item_"+(tableRef.rows.length-2);
@@ -322,7 +313,7 @@
 				$dh_query= mysql_query($don_hang);
 				if(mysql_num_rows($dh_query)!=0){
 					while($row=mysql_fetch_array($dh_query)){
-						echo "<script type='text/javascript'>add_item_new(\"".$row[MA_ITEM]."\",\"".$row[SO_LUONG]."\");</script>";
+						echo "<script type='text/javascript'>add_item_new(\"".$row[MA_ITEM]."\",\"".$row[SO_LUONG]."\",\"".$row[MA_SO_KHACH_HANG]."\");</script>";
 					}
 				}
 			}

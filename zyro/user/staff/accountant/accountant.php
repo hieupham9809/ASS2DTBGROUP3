@@ -96,7 +96,7 @@
 //update `BANG_LUONG`,`NHAN_VIEN` SET `BANG_LUONG`.`LUONG_CHINH_THUC`=`NHAN_VIEN`.`LUONG`-'".$_POST['so_ngay_nghi']."'*100+('".$_POST['so_gio_tang_ca']."'/8)*200+'".$_POST['tien_thuong']."'-'".$_POST['tien_phat']."'
 //WHERE `BANG_LUONG`.`MA_SO_NHAN_VIEN`=".$_POST['ma_so_nhan_vien']." and `BANG_LUONG`.`THANG`=".$_POST['thang'].";
 //END";			
-				echo $sql_insert;
+				
 				$query_insert = mysql_query($sql_insert); 
 			}
 		
